@@ -2,3 +2,5 @@ uvicorn
 fastapi
 celery
 redis
+psycopg2-binary
+sqalchemy

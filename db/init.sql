@@ -4,7 +4,7 @@ CREATE TABLE swings(
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     date DATE NOT NULL,
     notes TEXT
-)
+);
 
 CREATE TABLE clips(
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
