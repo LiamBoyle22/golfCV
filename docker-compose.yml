@@ -1,0 +1,41 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    environment:
+      - DATABASE_URL=postgresql://yolfcv:yolfcv@postgres:5432/yolfcv
+  
+  inference-worker:
+    build: .
+    command: celery -A workers.celery_app worker --loglevel=info -Q inference -n inference@%h
+    depends_on:
+      - redis
+  
+  metrics-worker:
+    build: .
+    command: celery -A workers.celery_app worker --loglevel=info -Q metrics -n metrics@%h
+    depends_on:
+      - redis
+  
+  postgres:
+    image: postgres:16
+    environment:
+      - POSTGRES_USER=yolfcv
+      - POSTGRES_PASSWORD = ${POSTGRES_PASSWORD}
+      - POSTGRES_DB=yolfcv
+    ports: 
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+
+volumes:
+  pgdata:
