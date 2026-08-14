@@ -3,6 +3,10 @@ __pycache__/
 *.pyc
 .env
 
+.img
+.png
+.pdf
+
 *.mp4
 *.mov
 /data/
