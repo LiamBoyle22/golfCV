@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from workers.celery_app import run_pose_inference
+from workers.celery_app import run_pose_inference, ping_metrics_task
 
 app = FastAPI()
 

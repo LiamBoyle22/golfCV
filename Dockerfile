@@ -3,7 +3,9 @@ FROM python:3.11-slim
 WORKDIR /app
 
 COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt \
+    && pip uninstall -y opencv-python opencv-python-headless \
+    && pip install opencv-python-headless
 
 COPY api/ ./api
 COPY workers/ ./workers
